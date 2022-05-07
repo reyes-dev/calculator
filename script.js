@@ -25,8 +25,10 @@ const nine = document.querySelector('#nine');
 let firstVal = 0;
 let secondVal = 0;
 let resultVal = 0;
-let whichOperator = '';
+let whichOperator;
+let evalRunning = false;
 //functions
+//basic operators
 const add = function(n1, n2){
     return n1 + n2;
 };
@@ -39,24 +41,45 @@ const multiply = function(n1, n2){
 const divide = function(n1, n2){
     return n1 / n2;
 };
+//passes operator function with two numbers
 const operate = function(operator, n1, n2){
     return operator(n1, n2);
 }
+//displays clicked digits
 const displayNumbers = function(){
-        display.textContent += this.innerHTML;
-        firstVal = parseInt(display.innerHTML);
-        console.log('Current value: ' + firstVal);
+    if(!evalRunning){
+        if(display.textContent === '0') display.textContent = '';
+        if(!(whichOperator === undefined)){
+            if(parseInt(display.textContent) === firstVal) display.textContent = '';
+            display.textContent += this.innerHTML;
+            secondVal = parseInt(display.innerHTML);
+            console.log('Current second value: ' + secondVal);
+        } else{
+            display.textContent += this.innerHTML;
+            firstVal = parseInt(display.innerHTML);
+            console.log('Current first value: ' + firstVal);
+        }
+    }
+
 }
+//calls operate function and displays result
 const displayResult = function(){
     if(whichOperator === 'add'){
-        resultVal = operate(add, firstVal, secondVal);
-        firstVal = resultVal;
+        resultVal += operate(add, firstVal, secondVal);
         display.textContent = resultVal;
-        whichClick = 0;
-        whichOperator = '';
+        whichOperator = undefined;
+        firstVal = 0;
+        secondVal = 0;
+        evalRunning = true;
     }
 }
 //Displays clicked digit on top
 operand.forEach(item => {item.addEventListener('click', displayNumbers)});
-plusBtn.addEventListener('click', () => whichOperator = 'add');
+plusBtn.addEventListener('click', () => {
+    whichOperator = 'add'
+    if(evalRunning){
+        evalRunning = false;
+        display.textContent = '';
+    }
+});
 equalsBtn.addEventListener('click', displayResult);
