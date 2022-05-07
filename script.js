@@ -46,11 +46,11 @@ const operate = function(operator, n1, n2){
     return operator(n1, n2);
 }
 //displays clicked digits
+//evalRunning makes sure buttons unresponsive when no operator is being used
 const displayNumbers = function(){
     if(!evalRunning){
         if(display.textContent === '0') display.textContent = '';
         if(!(whichOperator === undefined)){
-            if(parseInt(display.textContent) === firstVal) display.textContent = '';
             display.textContent += this.innerHTML;
             secondVal = parseInt(display.innerHTML);
             console.log('Current second value: ' + secondVal);
@@ -76,10 +76,10 @@ const displayResult = function(){
 //Displays clicked digit on top
 operand.forEach(item => {item.addEventListener('click', displayNumbers)});
 plusBtn.addEventListener('click', () => {
-    whichOperator = 'add'
+    whichOperator = 'add';
+    display.textContent = '';
     if(evalRunning){
         evalRunning = false;
-        display.textContent = '';
     }
 });
 equalsBtn.addEventListener('click', displayResult);
