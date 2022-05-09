@@ -20,13 +20,14 @@ const six = document.querySelector('#six');
 const seven = document.querySelector('#seven');
 const eight = document.querySelector('#eight');
 const nine = document.querySelector('#nine');
-
 //variables
-let firstVal = 0;
-let secondVal = 0;
-let resultVal = 0;
+let displayValue;
+let otherValue;
 let whichOperator;
-let evalRunning = false;
+let test = false;
+let clickedOnce = false;
+let equalsClicked = false;
+
 //functions
 //basic operators
 const add = function(n1, n2){
@@ -44,42 +45,45 @@ const divide = function(n1, n2){
 //passes operator function with two numbers
 const operate = function(operator, n1, n2){
     return operator(n1, n2);
+};
+//0-9 digits
+operand.forEach(element => element.addEventListener('click', () => {
+    if(!test){
+        if(!clickedOnce){
+            display.textContent += element.innerHTML;
+            displayValue = display.textContent;
+        }
+        else if(clickedOnce){
+            display.textContent += element.innerHTML;
+            otherValue = display.textContent; 
+        }
+    }   
 }
-//displays clicked digits
-//evalRunning makes sure buttons unresponsive when no operator is being used
-const displayNumbers = function(){
-    if(!evalRunning){
-        if(display.textContent === '0') display.textContent = '';
-        if(!(whichOperator === undefined)){
-            display.textContent += this.innerHTML;
-            secondVal = parseInt(display.innerHTML);
-            console.log('Current second value: ' + secondVal);
-        } else{
-            display.textContent += this.innerHTML;
-            firstVal = parseInt(display.innerHTML);
-            console.log('Current first value: ' + firstVal);
+));
+//Add operator
+plusBtn.addEventListener('click', () =>{
+    if(!(otherValue > 0)){
+        whichOperator = 'add';
+        display.textContent = '';
+        clickedOnce = true;
+        if(test){
+            test = false;
         }
     }
-
-}
-//calls operate function and displays result
-const displayResult = function(){
-    if(whichOperator === 'add'){
-        resultVal += operate(add, firstVal, secondVal);
-        display.textContent = resultVal;
-        whichOperator = undefined;
-        firstVal = 0;
-        secondVal = 0;
-        evalRunning = true;
-    }
-}
-//Displays clicked digit on top
-operand.forEach(item => {item.addEventListener('click', displayNumbers)});
-plusBtn.addEventListener('click', () => {
-    whichOperator = 'add';
-    display.textContent = '';
-    if(evalRunning){
-        evalRunning = false;
-    }
 });
-equalsBtn.addEventListener('click', displayResult);
+//equals operator
+equalsBtn.addEventListener('click', () => {
+    display.textContent = '';
+    displayValue = operate(add, parseInt(displayValue), parseInt(otherValue));
+    display.textContent = displayValue;
+    otherValue = 0;
+    clickedOnce = false;
+    test = true;
+});
+
+//Two problems
+//If I click plus before any digits, clickedOnce becomes true, making it impossible
+// to give a value to displayValue (first val)
+//Second problem
+//if I click plus after typing a number to fill otherValue, it will just reset
+//I'd prefer plus to be unclickable or result in running operate on the two values 
