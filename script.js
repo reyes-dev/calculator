@@ -27,6 +27,7 @@ let whichOperator;
 let test = false;
 let clickedOnce = false;
 let equalsClicked = false;
+let operandClicked = false;
 
 //functions
 //basic operators
@@ -48,6 +49,7 @@ const operate = function(operator, n1, n2){
 };
 //0-9 digits
 operand.forEach(element => element.addEventListener('click', () => {
+    operandClicked = true;
     if(!test){
         if(!clickedOnce){
             display.textContent += element.innerHTML;
@@ -62,6 +64,7 @@ operand.forEach(element => element.addEventListener('click', () => {
 ));
 //Add operator
 plusBtn.addEventListener('click', () =>{
+if(operandClicked){
     if(!(otherValue > 0)){
         whichOperator = 'add';
         display.textContent = '';
@@ -70,20 +73,39 @@ plusBtn.addEventListener('click', () =>{
             test = false;
         }
     }
+}
 });
+//Minus operator
+minusBtn.addEventListener('click', () =>{
+    if(operandClicked){
+        if(!(otherValue > 0)){
+            whichOperator = 'subtract';
+            display.textContent = '';
+            clickedOnce = true;
+            if(test){
+                test = false;
+            }
+        }
+    }
+    });
 //equals operator
 equalsBtn.addEventListener('click', () => {
-    display.textContent = '';
-    displayValue = operate(add, parseInt(displayValue), parseInt(otherValue));
-    display.textContent = displayValue;
-    otherValue = 0;
-    clickedOnce = false;
-    test = true;
+    if(displayValue != undefined && otherValue != undefined){
+        if(whichOperator === 'add'){
+            display.textContent = '';
+            displayValue = operate(add, parseInt(displayValue), parseInt(otherValue));
+            display.textContent = displayValue;
+            otherValue = 0;
+            clickedOnce = false;
+            test = true;            
+        }
+        else if(whichOperator === 'subtract'){
+            display.textContent = '';
+            displayValue= operate(subtract, parseInt(displayValue), parseInt(otherValue));
+            display.textContent = displayValue;
+            otherValue = 0;
+            clickedOnce = false;
+            test = true;
+        }
+    }
 });
-
-//Two problems
-//If I click plus before any digits, clickedOnce becomes true, making it impossible
-// to give a value to displayValue (first val)
-//Second problem
-//if I click plus after typing a number to fill otherValue, it will just reset
-//I'd prefer plus to be unclickable or result in running operate on the two values 
