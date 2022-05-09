@@ -1,3 +1,9 @@
+//Currently I can change operator while the display is still blank
+//So if I click one accidentally or forgot what operator I'm using, that's a problem
+//But just making the display have a "+" or "-" temporarily is buggy
+//because it carries over to the next act of adding digits
+//For a fix, maybe adding divs for each operator that remain invisible but are toggled on // and off?
+
 //query selectors
 const display = document.querySelector('.display');
 const clearBtn = document.querySelector('#AC');
@@ -89,6 +95,19 @@ minusBtn.addEventListener('click', () =>{
     }
     });
 //Multiply operator
+divideBtn.addEventListener('click', () =>{
+    if(operandClicked){
+        if(!(otherValue > 0)){
+            whichOperator = 'divide';
+            display.textContent = '';
+            clickedOnce = true;
+            if(test){
+                test = false;
+            }
+        }
+    }
+    });
+//Division operator
 multiplyBtn.addEventListener('click', () =>{
     if(operandClicked){
         if(!(otherValue > 0)){
@@ -123,6 +142,14 @@ equalsBtn.addEventListener('click', () => {
         else if(whichOperator === 'multiply'){
             display.textContent = '';
             displayValue= operate(multiply, parseInt(displayValue), parseInt(otherValue));
+            display.textContent = displayValue;
+            otherValue = undefined;
+            clickedOnce = false;
+            test = true;
+        }
+        else if(whichOperator === 'divide'){
+            display.textContent = '';
+            displayValue= operate(divide, parseInt(displayValue), parseInt(otherValue));
             display.textContent = displayValue;
             otherValue = undefined;
             clickedOnce = false;
