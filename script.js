@@ -88,6 +88,19 @@ minusBtn.addEventListener('click', () =>{
         }
     }
     });
+//Multiply operator
+multiplyBtn.addEventListener('click', () =>{
+    if(operandClicked){
+        if(!(otherValue > 0)){
+            whichOperator = 'multiply';
+            display.textContent = '';
+            clickedOnce = true;
+            if(test){
+                test = false;
+            }
+        }
+    }
+    });
 //equals operator
 equalsBtn.addEventListener('click', () => {
     if(displayValue != undefined && otherValue != undefined){
@@ -95,7 +108,7 @@ equalsBtn.addEventListener('click', () => {
             display.textContent = '';
             displayValue = operate(add, parseInt(displayValue), parseInt(otherValue));
             display.textContent = displayValue;
-            otherValue = 0;
+            otherValue = undefined;
             clickedOnce = false;
             test = true;            
         }
@@ -103,7 +116,15 @@ equalsBtn.addEventListener('click', () => {
             display.textContent = '';
             displayValue= operate(subtract, parseInt(displayValue), parseInt(otherValue));
             display.textContent = displayValue;
-            otherValue = 0;
+            otherValue = undefined;
+            clickedOnce = false;
+            test = true;
+        }
+        else if(whichOperator === 'multiply'){
+            display.textContent = '';
+            displayValue= operate(multiply, parseInt(displayValue), parseInt(otherValue));
+            display.textContent = displayValue;
+            otherValue = undefined;
             clickedOnce = false;
             test = true;
         }
