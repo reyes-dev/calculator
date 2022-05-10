@@ -1,8 +1,8 @@
 //Project is technically finished, but needs some finishing touches
-//Fix divide by zero + NaN bugs
 //Improve CSS
 //Improve comments
 //QUERY SELECTORS
+const span = document.querySelector("#alarmmsg");
 const display = document.querySelector('.display');
 const clearBtn = document.querySelector('#AC');
 const signBtn = document.querySelector('#sign');
@@ -43,7 +43,7 @@ const multiply = function(n1, n2){
     return n1 * n2;
 };
 const divide = function(n1, n2){
-    return n1 / n2;
+        return n1 / n2;
 };
 //Passes operator function with two numbers
 const operate = function(operator, n1, n2){
@@ -61,8 +61,8 @@ function clearAll(){
     display.textContent = '';
 }
 //Clickability for digit numbers
-//
 operand.forEach(element => element.addEventListener('click', () => {
+    if(display.textContent === 'To Infinity') return clearAll();
     operandClicked = true;
     if(!equalsClicked){
         if(!clickedOnce){
@@ -156,12 +156,16 @@ equalsBtn.addEventListener('click', () => {
             equalsClicked = true;
         }
         else if(whichOperator === 'divide'){
-            display.textContent = '';
-            displayValue= operate(divide, parseInt(displayValue), parseInt(otherValue));
-            display.textContent = displayValue;
-            otherValue = undefined;
-            clickedOnce = false;
-            equalsClicked = true;
+            if(otherValue === '0'){
+                 return display.textContent = 'To Infinity';  
+            } else{
+                display.textContent = '';
+                displayValue= operate(divide, parseInt(displayValue), parseInt(otherValue));
+                display.textContent = displayValue;
+                otherValue = undefined;
+                clickedOnce = false;
+                equalsClicked = true;
+            }
         }
     }
 });
