@@ -1,6 +1,5 @@
 //Project is technically finished, but needs some finishing touches
 //Improve CSS
-//Improve comments
 //QUERY SELECTORS
 const span = document.querySelector("#alarmmsg");
 const display = document.querySelector('.display');
@@ -60,6 +59,9 @@ function clearAll(){
     operandClicked = false;
     display.textContent = '';
 }
+//Called when operator buttons are clicked
+//Sets boolean variable that turns true if equals is clicked to false
+//Which in turn lets user click the digit buttons and add to total-variables
 function clickOperator(operatorString){
     if(operandClicked){
         if(!(otherValue > 0)){
@@ -72,11 +74,20 @@ function clickOperator(operatorString){
         }
     }
 }
-
-function clickEquals(operatorString){
-    
+//Performs the operate function on the two entered values
+function clickEquals(op){
+    display.textContent = '';
+    displayValue = operate(op, parseInt(displayValue), parseInt(otherValue));
+    display.textContent = displayValue;
+    otherValue = undefined;
+    clickedOnce = false;
+    equalsClicked = true; 
 }
 //Clickability for digit numbers
+//Sets value for the first number variable total 'displayValue'
+//Sets value for the second number variable  if clickedOnce is true
+//Both number variables are later ran through the operator functions to determine a new
+// value for the displayValue variable
 operand.forEach(element => element.addEventListener('click', () => {
     if(display.textContent === 'To Infinity') return clearAll();
     operandClicked = true;
@@ -92,6 +103,8 @@ operand.forEach(element => element.addEventListener('click', () => {
     }   
 }
 ));
+
+//Operator Functions
 //Add operator
 plusBtn.addEventListener('click', () =>{
     clickOperator('add');
@@ -108,47 +121,26 @@ divideBtn.addEventListener('click', () =>{
 multiplyBtn.addEventListener('click', () =>{
     clickOperator('multiply');
     });
-
-//equals operator
+//Equals operator
 equalsBtn.addEventListener('click', () => {
     if(displayValue != undefined && otherValue != undefined){
         if(whichOperator === 'add'){
-            display.textContent = '';
-            displayValue = operate(add, parseInt(displayValue), parseInt(otherValue));
-            display.textContent = displayValue;
-            otherValue = undefined;
-            clickedOnce = false;
-            equalsClicked = true;            
+            clickEquals(add);     
         }
         else if(whichOperator === 'subtract'){
-            display.textContent = '';
-            displayValue= operate(subtract, parseInt(displayValue), parseInt(otherValue));
-            display.textContent = displayValue;
-            otherValue = undefined;
-            clickedOnce = false;
-            equalsClicked = true;
+            clickEquals(subtract);
         }
         else if(whichOperator === 'multiply'){
-            display.textContent = '';
-            displayValue= operate(multiply, parseInt(displayValue), parseInt(otherValue));
-            display.textContent = displayValue;
-            otherValue = undefined;
-            clickedOnce = false;
-            equalsClicked = true;
+            clickEquals(multiply);
         }
         else if(whichOperator === 'divide'){
             if(otherValue === '0'){
                  return display.textContent = 'To Infinity';  
             } else{
-                display.textContent = '';
-                displayValue= operate(divide, parseInt(displayValue), parseInt(otherValue));
-                display.textContent = displayValue;
-                otherValue = undefined;
-                clickedOnce = false;
-                equalsClicked = true;
+                clickEquals(divide);
             }
         }
     }
 });
-
+//clear button
 clearBtn.addEventListener('click', clearAll);
