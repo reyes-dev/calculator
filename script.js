@@ -1,13 +1,8 @@
-//Currently I can change operator while the display is still blank
-//So if I click one accidentally or forgot what operator I'm using, that's a problem
-//But just making the display have a "+" or "-" temporarily is buggy
-//because it carries over to the next act of adding digits
-//For a fix, maybe adding divs for each operator that remain invisible but are toggled on // and off?
-//Need to add clear button functionality and fix divide by zero + NaN bugs
-//Then I will add decimal button functionality
-//Finally I will improve the CSS and maybe try to add a backspace functionality too
-
-//query selectors
+//Project is technically finished, but needs some finishing touches
+//Fix divide by zero + NaN bugs
+//Improve CSS
+//Improve comments
+//QUERY SELECTORS
 const display = document.querySelector('.display');
 const clearBtn = document.querySelector('#AC');
 const signBtn = document.querySelector('#sign');
@@ -29,17 +24,15 @@ const six = document.querySelector('#six');
 const seven = document.querySelector('#seven');
 const eight = document.querySelector('#eight');
 const nine = document.querySelector('#nine');
-//variables
+//VARIABLES
 let displayValue;
 let otherValue;
 let whichOperator;
 let test = false;
 let clickedOnce = false;
-let equalsClicked = false;
 let operandClicked = false;
-
-//functions
-//basic operators
+//FUNCTIONS
+//Operator Functions
 const add = function(n1, n2){
     return n1 + n2;
 };
@@ -52,11 +45,23 @@ const multiply = function(n1, n2){
 const divide = function(n1, n2){
     return n1 / n2;
 };
-//passes operator function with two numbers
+//Passes operator function with two numbers
 const operate = function(operator, n1, n2){
     return operator(n1, n2);
 };
-//0-9 digits
+//Resets the values of all variables used for the calculator logic to their origin state
+//when called
+function clearAll(){
+    displayValue = undefined;
+    otherValue = undefined;
+    whichOperator = '';
+    test = false;
+    clickedOnce = false;
+    operandClicked = false;
+    display.textContent = '';
+}
+//Clickability for digit numbers
+//
 operand.forEach(element => element.addEventListener('click', () => {
     operandClicked = true;
     if(!test){
@@ -161,3 +166,4 @@ equalsBtn.addEventListener('click', () => {
     }
 });
 
+clearBtn.addEventListener('click', clearAll);

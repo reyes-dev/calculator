@@ -33,3 +33,13 @@ body{
     grid-column-start: 1;
     grid-column-end: 3;
 }
+.invisible{
+    visibility: hidden;
+}
+
+span{
+    position: relative;
+    height: 10px;
+    bottom: 40px;
+    font-size: 24px;
+}
