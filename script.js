@@ -3,6 +3,9 @@
 //But just making the display have a "+" or "-" temporarily is buggy
 //because it carries over to the next act of adding digits
 //For a fix, maybe adding divs for each operator that remain invisible but are toggled on // and off?
+//Need to add clear button functionality and fix divide by zero + NaN bugs
+//Then I will add decimal button functionality
+//Finally I will improve the CSS and maybe try to add a backspace functionality too
 
 //query selectors
 const display = document.querySelector('.display');
@@ -157,3 +160,4 @@ equalsBtn.addEventListener('click', () => {
         }
     }
 });
+
