@@ -1,5 +1,4 @@
-//Project is technically finished, but needs some finishing touches
-//Improve CSS
+//A barebones calculator that can perform simple evaluations and is colorful
 //QUERY SELECTORS
 const span = document.querySelector("#alarmmsg");
 const display = document.querySelector('.display');
@@ -103,7 +102,6 @@ operand.forEach(element => element.addEventListener('click', () => {
     }   
 }
 ));
-
 //Operator Functions
 //Add operator
 plusBtn.addEventListener('click', () =>{

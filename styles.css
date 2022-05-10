@@ -2,6 +2,7 @@
 * {
     margin: 0;
     padding: 0;
+    color: #EFE6DD;
 }
 body{
     display: flex;
@@ -9,11 +10,24 @@ body{
     align-items: center;
     width: 100%;
     min-height: 100vh;
+    background-color: #EFE6DD;
+}
+button{
+    background-color: #7EBDC2;
+    border: none;
+}
+.operator{
+    background-color: #BB4430;
+}
+.operand{
+    background-color: #231F20;
 }
 .container{
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-gap: 1px;
-    border: 3px solid black;
+    border: 3px solid #7EBDC2;
     border-radius: 5px;
     height: 400px;
     width: 300px;
@@ -27,18 +41,11 @@ body{
     text-align: end;
     font-size: 32px;
     overflow: auto;
-    /* height: 40px; */
+    background-color: #F3DFA2;
+    color: #231F20;
 }
 #zero{
     grid-column-start: 1;
     grid-column-end: 3;
-}
-#alarmmsg{
-    position: relative;
-    height: 20px;
-    bottom: 20px;
-}
-.invisible{
-    visibility: hidden;
 }
 
