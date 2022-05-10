@@ -60,6 +60,22 @@ function clearAll(){
     operandClicked = false;
     display.textContent = '';
 }
+function clickOperator(operatorString){
+    if(operandClicked){
+        if(!(otherValue > 0)){
+            whichOperator = operatorString;
+            display.textContent = '';
+            clickedOnce = true;
+            if(equalsClicked){
+                equalsClicked = false;
+            }
+        }
+    }
+}
+
+function clickEquals(operatorString){
+    
+}
 //Clickability for digit numbers
 operand.forEach(element => element.addEventListener('click', () => {
     if(display.textContent === 'To Infinity') return clearAll();
@@ -78,56 +94,21 @@ operand.forEach(element => element.addEventListener('click', () => {
 ));
 //Add operator
 plusBtn.addEventListener('click', () =>{
-if(operandClicked){
-    if(!(otherValue > 0)){
-        whichOperator = 'add';
-        display.textContent = '';
-        clickedOnce = true;
-        if(equalsClicked){
-            equalsClicked = false;
-        }
-    }
-}
+    clickOperator('add');
 });
 //Minus operator
 minusBtn.addEventListener('click', () =>{
-    if(operandClicked){
-        if(!(otherValue > 0)){
-            whichOperator = 'subtract';
-            display.textContent = '';
-            clickedOnce = true;
-            if(equalsClicked){
-                equalsClicked = false;
-            }
-        }
-    }
+    clickOperator('subtract');
     });
 //Multiply operator
 divideBtn.addEventListener('click', () =>{
-    if(operandClicked){
-        if(!(otherValue > 0)){
-            whichOperator = 'divide';
-            display.textContent = '';
-            clickedOnce = true;
-            if(equalsClicked){
-                equalsClicked = false;
-            }
-        }
-    }
+    clickOperator('divide');
     });
 //Division operator
 multiplyBtn.addEventListener('click', () =>{
-    if(operandClicked){
-        if(!(otherValue > 0)){
-            whichOperator = 'multiply';
-            display.textContent = '';
-            clickedOnce = true;
-            if(equalsClicked){
-                equalsClicked = false;
-            }
-        }
-    }
+    clickOperator('multiply');
     });
+
 //equals operator
 equalsBtn.addEventListener('click', () => {
     if(displayValue != undefined && otherValue != undefined){
