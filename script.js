@@ -28,7 +28,7 @@ const nine = document.querySelector('#nine');
 let displayValue;
 let otherValue;
 let whichOperator;
-let test = false;
+let equalsClicked = false;
 let clickedOnce = false;
 let operandClicked = false;
 //FUNCTIONS
@@ -55,7 +55,7 @@ function clearAll(){
     displayValue = undefined;
     otherValue = undefined;
     whichOperator = '';
-    test = false;
+    equalsClicked = false;
     clickedOnce = false;
     operandClicked = false;
     display.textContent = '';
@@ -64,7 +64,7 @@ function clearAll(){
 //
 operand.forEach(element => element.addEventListener('click', () => {
     operandClicked = true;
-    if(!test){
+    if(!equalsClicked){
         if(!clickedOnce){
             display.textContent += element.innerHTML;
             displayValue = display.textContent;
@@ -83,8 +83,8 @@ if(operandClicked){
         whichOperator = 'add';
         display.textContent = '';
         clickedOnce = true;
-        if(test){
-            test = false;
+        if(equalsClicked){
+            equalsClicked = false;
         }
     }
 }
@@ -96,8 +96,8 @@ minusBtn.addEventListener('click', () =>{
             whichOperator = 'subtract';
             display.textContent = '';
             clickedOnce = true;
-            if(test){
-                test = false;
+            if(equalsClicked){
+                equalsClicked = false;
             }
         }
     }
@@ -109,8 +109,8 @@ divideBtn.addEventListener('click', () =>{
             whichOperator = 'divide';
             display.textContent = '';
             clickedOnce = true;
-            if(test){
-                test = false;
+            if(equalsClicked){
+                equalsClicked = false;
             }
         }
     }
@@ -122,8 +122,8 @@ multiplyBtn.addEventListener('click', () =>{
             whichOperator = 'multiply';
             display.textContent = '';
             clickedOnce = true;
-            if(test){
-                test = false;
+            if(equalsClicked){
+                equalsClicked = false;
             }
         }
     }
@@ -137,7 +137,7 @@ equalsBtn.addEventListener('click', () => {
             display.textContent = displayValue;
             otherValue = undefined;
             clickedOnce = false;
-            test = true;            
+            equalsClicked = true;            
         }
         else if(whichOperator === 'subtract'){
             display.textContent = '';
@@ -145,7 +145,7 @@ equalsBtn.addEventListener('click', () => {
             display.textContent = displayValue;
             otherValue = undefined;
             clickedOnce = false;
-            test = true;
+            equalsClicked = true;
         }
         else if(whichOperator === 'multiply'){
             display.textContent = '';
@@ -153,7 +153,7 @@ equalsBtn.addEventListener('click', () => {
             display.textContent = displayValue;
             otherValue = undefined;
             clickedOnce = false;
-            test = true;
+            equalsClicked = true;
         }
         else if(whichOperator === 'divide'){
             display.textContent = '';
@@ -161,7 +161,7 @@ equalsBtn.addEventListener('click', () => {
             display.textContent = displayValue;
             otherValue = undefined;
             clickedOnce = false;
-            test = true;
+            equalsClicked = true;
         }
     }
 });
